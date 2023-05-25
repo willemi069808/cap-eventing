@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="gcoe.ReceiverService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Toys" EntityType="gcoe.ReceiverService.Toys">
+                    <NavigationPropertyBinding Path="Changes" Target="Changes"/>
+                </EntitySet>
+                <EntitySet Name="Changes" EntityType="gcoe.ReceiverService.Changes">
+                    <NavigationPropertyBinding Path="Toy" Target="Toys"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="Toys">
+                <Property Name="ID" Type="Edm.Guid"/>
+                <Property Name="Name" Type="Edm.String"/>
+                <Property Name="Owner" Type="Edm.String"/>
+                <NavigationProperty Name="Changes" Type="Collection(gcoe.ReceiverService.Changes)" Partner="Toy">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="Timestamp" Type="Edm.DateTimeOffset"/>
+                <Property Name="Data" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Changes">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Timestamp" Type="Edm.DateTimeOffset"/>
+                <Property Name="Data" Type="Edm.String"/>
+                <NavigationProperty Name="Toy" Type="gcoe.ReceiverService.Toys" Partner="Changes"/>
+                <Property Name="Toy_ID" Type="Edm.Guid"/>
+            </EntityType>
+            <Annotations Target="gcoe.ReceiverService.Toys/ID">
+                <Annotation Term="Common.Label" String="ID"/>
+            </Annotations>
+            <Annotations Target="gcoe.ReceiverService.Toys/Name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="gcoe.ReceiverService.Toys/Owner">
+                <Annotation Term="Common.Label" String="Owner Name"/>
+            </Annotations>
+            <Annotations Target="gcoe.ReceiverService.Toys/Timestamp">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="gcoe.ReceiverService.Changes/ID">
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="ID"/>
+            </Annotations>
+            <Annotations Target="gcoe.ReceiverService.Changes/Timestamp">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
