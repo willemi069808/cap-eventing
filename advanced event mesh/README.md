@@ -10,6 +10,8 @@ This project contains 2 separate CAP applications, to run locally, but connectin
 
 ## Usage
 
+You can choose between 2 different AMQP packages (amqp10 or @sap/xb-msg-amqp-v100) by using either line 2 or 3 in server.js.
+
 Create a .env file in both projects, with the following connection details. Make sure to put all info on 1 line:
 ```
 cds.requires.SAPAEM.credentials = { "host": "xxx.messaging.solace.cloud", "port": 5671, "protocol": "amqps", "user": "solace-cloud-client", "password": "xxx"}

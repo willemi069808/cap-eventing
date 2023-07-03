@@ -7,6 +7,7 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^6.7",
+    "@sap/xb-msg-amqp-v100": "^0.9.58",
     "amqp10": "^3.6.0",
     "express": "^4"
   },
